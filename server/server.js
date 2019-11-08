@@ -28,6 +28,9 @@ app.use('/movie', selectedMovieRoute);
 const userRoute = require('./routes/user');
 app.use('/user', userRoute);
 
+const deleteRoute = require('./routes/delete');
+app.use('/delete', deleteRoute);
+
 // SERVER LISTENING
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server is up and running on port: ' + (process.env.PORT || 3000));

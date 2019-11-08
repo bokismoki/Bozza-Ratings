@@ -168,6 +168,14 @@ export default new Vuex.Store({
     },
     updateActivePaginationIndex: (context, payload) => {
       context.commit('UPDATE_ACTIVE_PAGINATION_INDEX', payload);
+    },
+    deleteMovie: (context, payload) => {
+      axios.delete(context.state.axiosURL + '/delete/' + payload)
+        .then(response => {
+          console.log('Movie with the id: ' + response.data._id + ' has been deleted.');
+        }).catch(err => {
+          console.error(err);
+        })
     }
   }
 })

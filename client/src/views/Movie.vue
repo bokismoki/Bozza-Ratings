@@ -6,6 +6,7 @@
     <div class="stars">
       <i class="fa fa-star" v-for="(star, index) in 5" :key="index" @click="updateRating(index)"></i>
     </div>
+    <button v-if="isDeletable" @click="deleteMovie" class="removeBtn">Remove</button>
   </div>
 </template>
 
@@ -18,11 +19,13 @@ export default {
     return {};
   },
   mounted() {
-    this.$store.dispatch("getMovie", this.$route.params.id);
     this.colorStars();
   },
   computed: {
-    ...mapGetters(["selectedMovie"])
+    ...mapGetters(["selectedMovie"]),
+    isDeletable() {
+      return this.$store.state.loggedUser.username === this.$store.state.selectedMovie.createdBy.username
+    }
   },
   methods: {
     colorStars() {
@@ -45,6 +48,12 @@ export default {
     },
     brokenImg(event) {
       event.target.src = require("../assets/cinema.jpg");
+    },
+    deleteMovie() {
+      this.$store.dispatch('deleteMovie', this.$route.params.id);
+      setTimeout(() => {
+        this.$router.push({name: 'movies'});
+      }, 500);
     }
   }
 };
@@ -76,6 +85,23 @@ export default {
     justify-content: center;
     i {
       margin: 0 1px;
+    }
+  }
+  .removeBtn {
+    background-color: #12172c;
+    color: #fff;
+    margin: 2em auto;
+    display: block;
+    border: none;
+    border-radius: 5px;
+    padding: .5em 1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 500ms, color 500ms;
+    &:hover {
+      background-color: #fff;
+      color: #12172c;
     }
   }
 }
