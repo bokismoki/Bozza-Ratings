@@ -1,5 +1,9 @@
 <template>
   <div class="moviee">
+    <div class="createdBy">
+      <p>Created by: <span>{{selectedMovie.createdBy.username}}</span></p>
+      <img :src="selectedMovie.createdBy.profileImage" />
+    </div>
     <h1>{{selectedMovie.title}}</h1>
     <p>{{selectedMovie.description}}</p>
     <img :src="selectedMovie.image" @error="brokenImg" />
@@ -67,6 +71,26 @@ export default {
 <style lang="scss">
 .moviee {
   padding: 2em 0.5em;
+  .createdBy {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+      color: #f7be16;
+      padding: 0;
+    }
+    span {
+      text-transform: uppercase;
+    }
+    img {
+      width: 75px;
+      border-radius: 50%;
+      margin: 1em;
+    }
+  }
   h1,
   p {
     text-align: center;
