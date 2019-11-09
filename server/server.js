@@ -13,22 +13,22 @@ app.use(express.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // ROUTES
-const signupRoute = require('./routes/signup');
+const signupRoute = require('./routes/userRoute/signup');
 app.use('/signup', signupRoute);
 
-const loginRoute = require('./routes/login');
+const loginRoute = require('./routes/userRoute/login');
 app.use('/login', loginRoute);
 
-const moviesRoute = require('./routes/movies');
+const moviesRoute = require('./routes/movieRoute/movies');
 app.use('/movies', moviesRoute);
 
-const selectedMovieRoute = require('./routes/selectedMovie');
-app.use('/movie', selectedMovieRoute);
+const movieRoute = require('./routes/movieRoute/movie');
+app.use('/movie', movieRoute);
 
-const userRoute = require('./routes/user');
+const userRoute = require('./routes/userRoute/user');
 app.use('/user', userRoute);
 
-const deleteRoute = require('./routes/delete');
+const deleteRoute = require('./routes/movieRoute/delete');
 app.use('/delete', deleteRoute);
 
 // SERVER LISTENING
