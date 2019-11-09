@@ -68,9 +68,11 @@ export default {
     },
     goToMovie(id) {
       this.$store.dispatch("getMovie", id);
+      this.$store.dispatch("updateIsLoading", true);
       setTimeout(() => {
         this.$router.push({ name: "movie", params: { id } });
-      }, 500)
+        this.$store.dispatch("updateIsLoading", false);
+      }, 500);
     },
     updateActivePaginationIndex(index) {
       if (this.$store.state.activePaginationIndex !== index) {

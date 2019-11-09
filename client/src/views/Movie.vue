@@ -24,7 +24,10 @@ export default {
   computed: {
     ...mapGetters(["selectedMovie"]),
     isDeletable() {
-      return this.$store.state.loggedUser.username === this.$store.state.selectedMovie.createdBy.username
+      return (
+        this.$store.state.loggedUser.username ===
+        this.$store.state.selectedMovie.createdBy.username
+      );
     }
   },
   methods: {
@@ -50,9 +53,11 @@ export default {
       event.target.src = require("../assets/cinema.jpg");
     },
     deleteMovie() {
-      this.$store.dispatch('deleteMovie', this.$route.params.id);
+      this.$store.dispatch("deleteMovie", this.$route.params.id);
+      this.$store.dispatch("updateIsLoading", true);
       setTimeout(() => {
-        this.$router.push({name: 'movies'});
+        this.$router.push({ name: "movies" });
+        this.$store.dispatch("updateIsLoading", false);
       }, 500);
     }
   }
@@ -94,7 +99,7 @@ export default {
     display: block;
     border: none;
     border-radius: 5px;
-    padding: .5em 1em;
+    padding: 0.5em 1em;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
@@ -107,7 +112,8 @@ export default {
 }
 @media (max-width: 1175px) {
   .moviee {
-    h1,p {
+    h1,
+    p {
       padding: 0 2em;
     }
   }
@@ -121,8 +127,9 @@ export default {
 }
 @media (max-width: 500px) {
   .moviee {
-    h1,p {
-      padding: 0 .5em;
+    h1,
+    p {
+      padding: 0 0.5em;
     }
   }
 }

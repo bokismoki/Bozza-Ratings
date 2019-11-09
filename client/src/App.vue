@@ -1,5 +1,8 @@
 <template>
   <div class="app">
+    <div class="loaderContainer" v-if="isLoading">
+      <img src="./assets/91.gif" class="loader" alt="Loading Animation" />
+    </div>
     <i class="fa fa-bars fa-2x showNav" @click="navIsOpen = true"></i>
     <nav class="nav" :class="{show: navIsOpen}">
       <i class="fa fa-times fa-2x closeNav" @click="navIsOpen = false"></i>
@@ -60,7 +63,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isLogged"]),
+    ...mapGetters(["isLogged", "isLoading"]),
     optionsBtn() {
       return this.optionsIsOpen ? "Hide Options" : "Show Options";
     },
@@ -92,6 +95,23 @@ body {
   font-family: "Times New Roman", Times, serif;
   background: url("./assets/background.jpg") center/cover;
   padding: 1em;
+}
+.loaderContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 .showNav {
   position: fixed;
@@ -259,7 +279,7 @@ form {
 }
 @media (max-width: 500px) {
   .viewTitle {
-  font-size: 2.5em;
-}
+    font-size: 2.5em;
+  }
 }
 </style>

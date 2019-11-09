@@ -14,7 +14,8 @@ export default new Vuex.Store({
     movies: [],
     loggedUser: {},
     selectedMovie: {},
-    activePaginationIndex: 0
+    activePaginationIndex: 0,
+    isLoading: false
   },
   getters: {
     isLogged: state => state.isLogged,
@@ -24,7 +25,8 @@ export default new Vuex.Store({
     selectedMovie: state => state.selectedMovie,
     numberOfButtons: state => Math.ceil(state.movies.length / 8),
     displayedMovies: state => state.movies.slice().splice(state.activePaginationIndex * 8, 8),
-    activePaginationIndex: state => state.activePaginationIndex
+    activePaginationIndex: state => state.activePaginationIndex,
+    isLoading: state => state.isLoading
   },
   mutations: {
     SET_ERROR_MSG: (state, payload) => {
@@ -53,6 +55,9 @@ export default new Vuex.Store({
     },
     UPDATE_ACTIVE_PAGINATION_INDEX: (state, payload) => {
       state.activePaginationIndex = payload;
+    },
+    UPDATE_IS_LOADING: (state, payload) => {
+      state.isLoading = payload;
     }
   },
   actions: {
@@ -176,6 +181,9 @@ export default new Vuex.Store({
         }).catch(err => {
           console.error(err);
         })
+    },
+    updateIsLoading: (context, payload) => {
+      context.commit('UPDATE_IS_LOADING', payload);
     }
   }
 })
