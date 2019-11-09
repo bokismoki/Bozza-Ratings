@@ -1,4 +1,4 @@
-const Movie = require('../models/Movie');
+const Movie = require('../../models/Movie');
 
 exports.getMovies = async (req, res) => {
     const movies = await Movie.find({}).sort({ createdOn: 'desc' });
