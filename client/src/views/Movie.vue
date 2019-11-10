@@ -1,7 +1,10 @@
 <template>
   <div class="moviee">
     <div class="createdBy">
-      <p>Created by: <span>{{selectedMovie.createdBy.username}}</span></p>
+      <p>
+        Created by:
+        <span>{{selectedMovie.createdBy.username}}</span>
+      </p>
       <img :src="selectedMovie.createdBy.profileImage" />
     </div>
     <h1>{{selectedMovie.title}}</h1>

@@ -1,5 +1,8 @@
 <template>
   <div class="movies">
+    <button @click="refreshMovies" class="refreshMovies">
+      <i class="fas fa-redo"></i>
+    </button>
     <h1 class="viewTitle">Movies</h1>
     <button class="showFormBtn" @click="formActive = !formActive" v-if="isLogged">{{formBtn}}</button>
     <form v-if="formActive && isLogged" @submit.prevent="addMovie">
@@ -60,6 +63,14 @@ export default {
     }
   },
   methods: {
+    getMovies() {
+      if (this.$store.state.movies.length === 0) {
+        this.$store.dispatch("getMovies");
+      }
+    },
+    refreshMovies() {
+      this.$store.dispatch("getMovies");
+    },
     brokenImg(event) {
       event.target.src = require("../assets/cinema.jpg");
     },
@@ -81,7 +92,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getMovies");
+    this.getMovies();
   },
   watch: {
     movie: {
@@ -98,6 +109,19 @@ export default {
 
 <style lang="scss">
 .movies {
+  .refreshMovies {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    padding: 0.5em 1em;
+    background-color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    i {
+      color: #12172c;
+    }
+  }
   .showFormBtn {
     padding: 0.5em;
     border-radius: 5px;
