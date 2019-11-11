@@ -49,7 +49,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (Store.state.errorMsg) {
-    Store.commit('SET_ERRORMSG', '');
+    Store.commit('SET_ERROR_MSG', '');
   }
   if (Object.entries(Store.state.loggedUser).length === 0 && Store.state.loggedUser.constructor === Object) {
     if (localStorage.getItem('jwt')) {

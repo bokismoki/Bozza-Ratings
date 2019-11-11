@@ -75,7 +75,11 @@ export default {
       event.target.src = require("../assets/cinema.jpg");
     },
     addMovie() {
-      this.$store.dispatch("addMovie", this.movie);
+      this.$store.dispatch("updateIsLoading", true);
+      setTimeout(() => {
+        this.$store.dispatch("addMovie", this.movie);
+        this.$store.dispatch("updateIsLoading", false);
+      }, 1000);
     },
     goToMovie(id) {
       this.$store.dispatch("getMovie", id);
@@ -83,7 +87,7 @@ export default {
       setTimeout(() => {
         this.$router.push({ name: "movie", params: { id } });
         this.$store.dispatch("updateIsLoading", false);
-      }, 500);
+      }, 1000);
     },
     updateActivePaginationIndex(index) {
       if (this.$store.state.activePaginationIndex !== index) {
@@ -118,6 +122,13 @@ export default {
     cursor: pointer;
     border: none;
     border-radius: 5px;
+    &::after {
+      position: absolute;
+      content: "Refresh";
+      color: #fff;
+      bottom: -60%;
+      left: 0%;
+    }
     i {
       color: #12172c;
     }

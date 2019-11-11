@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <div class="loaderContainer" v-if="isLoading">
-      <img src="./assets/91.gif" class="loader" alt="Loading Animation" />
+      <img src="./assets/25.gif" class="loader" alt="Loading Animation" />
     </div>
     <i class="fa fa-bars fa-2x showNav" @click="navIsOpen = true"></i>
     <nav class="nav" :class="{show: navIsOpen}">
@@ -30,11 +30,11 @@
       <button
         class="optionsBtn"
         v-if="routeIsMovies"
-        @click="optionsIsOpen = !optionsIsOpen"
+        @click="toggleOptions"
       >{{optionsBtn}}</button>
       <div class="options" v-if="optionsIsOpen && routeIsMovies">
         <p>Sort by date:</p>
-        <input type="radio" id="new" name="sort" @change="applyFilter" />
+        <input type="radio" id="new" name="sort" checked @change="applyFilter" />
         <label for="new">New</label>
         <br />
         <input type="radio" id="old" name="sort" @change="applyFilter" />
@@ -78,6 +78,9 @@ export default {
     applyFilter(event) {
       this.$store.dispatch("sortMovies", event.target.id);
       localStorage.setItem("sortOption", event.target.id);
+    },
+    toggleOptions() {
+      this.optionsIsOpen = !this.optionsIsOpen;
     }
   }
 };
@@ -103,7 +106,6 @@ body {
   bottom: 0;
   right: 0;
   z-index: 1;
-  background-color: #fff;
   width: 100%;
   height: 100%;
   .loader {
