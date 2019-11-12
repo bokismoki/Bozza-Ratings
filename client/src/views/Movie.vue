@@ -65,6 +65,7 @@ export default {
       setTimeout(() => {
         this.$router.push({ name: "movies" });
         this.$store.dispatch("updateIsLoading", false);
+        this.$store.dispatch("getMovies");
       }, 1000);
     }
   }

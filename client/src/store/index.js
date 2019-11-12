@@ -51,7 +51,7 @@ export default new Vuex.Store({
       state.movies = payload;
     },
     GET_MOVIE: (state, payload) => {
-      state.selectedMovie = payload;
+      state.selectedMovie = state.movies.find(movie => movie._id === payload);
     },
     UPDATE_ACTIVE_PAGINATION_INDEX: (state, payload) => {
       state.activePaginationIndex = payload;
@@ -163,13 +163,7 @@ export default new Vuex.Store({
       }
     },
     getMovie: (context, payload) => {
-      axios.get(context.state.axiosURL + '/movie/' + payload)
-        .then(movie => {
-          context.commit('GET_MOVIE', movie.data);
-
-        }).catch(err => {
-          console.error(err);
-        })
+      context.commit('GET_MOVIE', payload);
     },
     updateActivePaginationIndex: (context, payload) => {
       context.commit('UPDATE_ACTIVE_PAGINATION_INDEX', payload);

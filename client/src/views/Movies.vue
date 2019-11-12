@@ -156,12 +156,12 @@ export default {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(250px, 280px));
-    grid-template-rows: 400px;
     grid-column-gap: 5em;
     grid-row-gap: 2em;
     .movie {
       background-color: #fff;
       border-radius: 5px;
+      min-height: 400px;
       padding: 0.5em;
       cursor: pointer;
       transition: transform 250ms;
