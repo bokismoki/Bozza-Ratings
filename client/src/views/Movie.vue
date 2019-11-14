@@ -90,7 +90,10 @@ export default {
       text-transform: uppercase;
     }
     img {
-      width: 75px;
+      min-width: 75px;
+      max-width: 75px;
+      min-height: 75px;
+      max-height: 75px;
       border-radius: 50%;
       margin: 1em;
     }

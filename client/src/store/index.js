@@ -138,6 +138,7 @@ export default new Vuex.Store({
         }
       }).then((updatedImage) => {
         context.commit('UPDATE_PROFILE_IMAGE', updatedImage.data);
+        context.dispatch("getMovies");
       }).catch(err => {
         console.error(err);
       })
