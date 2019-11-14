@@ -27,11 +27,7 @@
           <i class="fas fa-cogs fa-2x"></i>
         </router-link>
       </div>
-      <button
-        class="optionsBtn"
-        v-if="routeIsMovies"
-        @click="toggleOptions"
-      >{{optionsBtn}}</button>
+      <button class="optionsBtn" v-if="routeIsMovies" @click="toggleOptions">{{optionsBtn}}</button>
       <div class="options" v-if="optionsIsOpen && routeIsMovies">
         <p>Sort by date:</p>
         <input type="radio" id="new" name="sort" checked @change="applyFilter" />
@@ -46,6 +42,9 @@
         <input type="radio" id="low" name="sort" @change="applyFilter" />
         <label for="low">Low</label>
       </div>
+      <router-link :to="{name: 'chat'}">
+        <i class="chat fa-2x fas fa-comment"></i>
+      </router-link>
     </nav>
     <router-view></router-view>
   </div>
@@ -174,6 +173,22 @@ body {
       i {
         color: #f7be16;
       }
+    }
+  }
+  .chat {
+    position: absolute;
+    bottom: 1em;
+    left: 2em;
+    color: #f7be16;
+    cursor: pointer;
+    &:hover::after {
+      position: absolute;
+      content: "Want to chat?";
+      font-size: 0.5em;
+      top: -50%;
+      left: -100%;
+      display: block;
+      width: 100px;
     }
   }
 }

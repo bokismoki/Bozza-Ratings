@@ -77,7 +77,11 @@ export default {
     addMovie() {
       this.$store.dispatch("updateIsLoading", true);
       setTimeout(() => {
-        this.$store.dispatch("addMovie", this.movie);
+        this.$store.dispatch("addMovie", this.movie).then(() => {
+          if (!this.$store.state.errorMsg) {
+            this.formActive = false;
+          }
+        });
         this.$store.dispatch("updateIsLoading", false);
       }, 1000);
     },
