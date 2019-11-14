@@ -117,7 +117,7 @@ export default new Vuex.Store({
       Router.push({ name: 'login' });
     },
     addMovie: (context, payload) => {
-      axios.post(context.state.axiosURL + '/movies', { ...payload, createdBy: { username: context.state.loggedUser.username, profileImage: context.state.loggedUser.profileImage } }, {
+      return axios.post(context.state.axiosURL + '/movies', { ...payload, createdBy: { username: context.state.loggedUser.username, profileImage: context.state.loggedUser.profileImage } }, {
         headers: {
           'content-type': 'application/json'
         }

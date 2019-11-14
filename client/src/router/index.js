@@ -6,6 +6,7 @@ import Login from '../views/Login'
 import Settings from '../views/Settings'
 import Store from '../store/index'
 import Movie from '../views/Movie'
+import Chat from '../views/Chat'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,14 @@ const routes = [
     path: '/movies/movie/:id',
     name: 'movie',
     component: Movie,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: Chat,
     meta: {
       requiresAuth: true
     }
