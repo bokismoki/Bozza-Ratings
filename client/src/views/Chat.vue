@@ -99,6 +99,7 @@ export default {
           margin-right: 0.5em;
           min-width: 50px;
           max-width: 50px;
+          max-height: 50px;
           border-radius: 50%;
         }
         span {
