@@ -8,8 +8,9 @@ module.exports = async (req, res) => {
     const user = await User.findOne({ _id });
     user.profileImage = newUrl;
     const updatedUser = await user.save();
-    res.send(updatedUser.profileImage);
-
+    
     // Update movie.createdBy.profileImage
     const movies = await Movie.updateMany({ 'createdBy.username': user.username }, { "$set": { "createdBy.profileImage": newUrl } }, { "multi": true });
+    
+    res.send(updatedUser.profileImage);
 };
