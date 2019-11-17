@@ -65,25 +65,29 @@ export default {
   methods: {
     getMovies() {
       if (this.$store.state.movies.length === 0) {
-        this.$store.dispatch("getMovies");
+        this.$store.dispatch("updateIsLoading", true);
+        this.$store.dispatch("getMovies").then(() => {
+          this.$store.dispatch("updateIsLoading", false);
+        });
       }
     },
     refreshMovies() {
-      this.$store.dispatch("getMovies");
+      this.$store.dispatch("updateIsLoading", true);
+      this.$store.dispatch("getMovies").then(() => {
+        this.$store.dispatch("updateIsLoading", false);
+      });
     },
     brokenImg(event) {
       event.target.src = require("../assets/cinema.jpg");
     },
     addMovie() {
       this.$store.dispatch("updateIsLoading", true);
-      setTimeout(() => {
-        this.$store.dispatch("addMovie", this.movie).then(() => {
-          if (!this.$store.state.errorMsg) {
-            this.formActive = false;
-          }
-        });
+      this.$store.dispatch("addMovie", this.movie).then(() => {
+        if (!this.$store.state.errorMsg) {
+          this.formActive = false;
+        }
         this.$store.dispatch("updateIsLoading", false);
-      }, 1000);
+      });
     },
     goToMovie(id) {
       this.$store.dispatch("getMovie", id);

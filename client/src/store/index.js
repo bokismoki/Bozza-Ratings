@@ -62,7 +62,7 @@ export default new Vuex.Store({
   },
   actions: {
     signup: (context, payload) => {
-      axios.post(context.state.axiosURL + '/signup', payload, {
+      return axios.post(context.state.axiosURL + '/signup', payload, {
         headers: {
           'content-type': 'application/json'
         }
@@ -77,7 +77,7 @@ export default new Vuex.Store({
       })
     },
     login: (context, payload) => {
-      axios.post(context.state.axiosURL + '/login', payload, {
+      return axios.post(context.state.axiosURL + '/login', payload, {
         headers: {
           'content-type': 'application/json'
         }
@@ -99,7 +99,7 @@ export default new Vuex.Store({
       context.commit('SET_IS_LOGGED', payload);
     },
     getMovies: context => {
-      axios.get(context.state.axiosURL + '/movies')
+      return axios.get(context.state.axiosURL + '/movies')
         .then(movies => {
           context.commit('GET_MOVIES', movies.data);
           if (localStorage.getItem("sortOption") !== null) {
@@ -132,7 +132,7 @@ export default new Vuex.Store({
       })
     },
     updateProfileImage: (context, payload) => {
-      axios.patch(context.state.axiosURL + '/user/' + context.state.loggedUser._id, { url: payload }, {
+      return axios.patch(context.state.axiosURL + '/user/' + context.state.loggedUser._id, { url: payload }, {
         headers: {
           'content-type': 'application/json'
         }
@@ -170,7 +170,7 @@ export default new Vuex.Store({
       context.commit('UPDATE_ACTIVE_PAGINATION_INDEX', payload);
     },
     deleteMovie: (context, payload) => {
-      axios.delete(context.state.axiosURL + '/delete/' + payload)
+      return axios.delete(context.state.axiosURL + '/delete/' + payload)
         .then(response => {
           console.log('Movie with the id: ' + response.data._id + ' has been deleted.');
         }).catch(err => {

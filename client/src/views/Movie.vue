@@ -60,13 +60,13 @@ export default {
       event.target.src = require("../assets/cinema.jpg");
     },
     deleteMovie() {
-      this.$store.dispatch("deleteMovie", this.$route.params.id);
       this.$store.dispatch("updateIsLoading", true);
-      setTimeout(() => {
-        this.$router.push({ name: "movies" });
-        this.$store.dispatch("updateIsLoading", false);
-        this.$store.dispatch("getMovies");
-      }, 1000);
+      this.$store.dispatch("deleteMovie", this.$route.params.id).then(() => {
+        this.$store.dispatch("getMovies").then(() => {
+          this.$store.dispatch("updateIsLoading", false);
+          this.$router.push({ name: "movies" });
+        });
+      });
     }
   }
 };

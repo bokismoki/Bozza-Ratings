@@ -29,7 +29,10 @@ export default {
       reader.addEventListener("load", () => {
         img.src = reader.result;
         if (this.$store.state.loggedUser.profileImage !== reader.result) {
-          this.$store.dispatch("updateProfileImage", reader.result);
+          this.$store.dispatch("updateIsLoading", true);
+          this.$store.dispatch("updateProfileImage", reader.result).then(() => {
+            this.$store.dispatch("updateIsLoading", false);
+          });
         }
       });
 

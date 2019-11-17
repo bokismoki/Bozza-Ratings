@@ -33,7 +33,7 @@ app.use('/delete', deleteRoute);
 // SOCKET.IO
 io.on('connection', socket => {
     socket.on('newUserConnected', user => {
-        console.log(`${user} conneected`);
+        console.log(`${user} connected`);
         io.emit('shareNewUser', user);
     })
 
@@ -45,9 +45,9 @@ io.on('connection', socket => {
         });
     })
 
-    socket.on('disconnect', () => {
-        console.log(`user disconnected`);
-    })
+    // socket.on('disconnect', () => {
+    //     console.log(`user disconnected`);
+    // })
 });
 
 // SERVER LISTENING

@@ -38,10 +38,9 @@ export default {
   methods: {
     signup() {
       this.$store.dispatch("updateIsLoading", true);
-      setTimeout(() => {
-        this.$store.dispatch("signup", this.user);
+      this.$store.dispatch("signup", this.user).then(() => {
         this.$store.dispatch("updateIsLoading", false);
-      }, 1000);
+      });
     }
   },
   computed: {

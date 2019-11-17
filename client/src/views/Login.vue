@@ -27,7 +27,10 @@ export default {
   },
   methods: {
     login() {
-      this.$store.dispatch("login", this.user);
+      this.$store.dispatch("updateIsLoading", true);
+      this.$store.dispatch("login", this.user).then(() => {
+        this.$store.dispatch("updateIsLoading", false);
+      });
     }
   },
   computed: {
