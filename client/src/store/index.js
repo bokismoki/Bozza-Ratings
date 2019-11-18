@@ -100,8 +100,8 @@ export default new Vuex.Store({
     },
     getMovies: context => {
       return axios.get(context.state.axiosURL + '/movies')
-        .then(movies => {
-          context.commit('GET_MOVIES', movies.data);
+        .then(response => {
+          context.commit('GET_MOVIES', response.data);
           if (localStorage.getItem("sortOption") !== null) {
             const sortOption = localStorage.getItem("sortOption");
             context.dispatch("sortMovies", sortOption);
@@ -119,13 +119,16 @@ export default new Vuex.Store({
     addMovie: (context, payload) => {
       return axios.post(context.state.axiosURL + '/movies', { ...payload, createdBy: { username: context.state.loggedUser.username, profileImage: context.state.loggedUser.profileImage } }, {
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
         }
-      }).then(movie => {
-        if (movie.data.message) {
-          context.commit('SET_ERROR_MSG', movie.data.message);
+      }).then(response => {
+        if (response.data.message) {
+          context.commit('SET_ERROR_MSG', response.data.message);
+        } else if (response.data.authorize) {
+          console.error(response.data.authorize);
         } else {
-          context.commit('ADD_MOVIE', movie.data);
+          context.commit('ADD_MOVIE', response.data);
         }
       }).catch(err => {
         console.error(err);
@@ -134,11 +137,16 @@ export default new Vuex.Store({
     updateProfileImage: (context, payload) => {
       return axios.patch(context.state.axiosURL + '/user/' + context.state.loggedUser._id, { url: payload }, {
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
         }
-      }).then((updatedImage) => {
-        context.commit('UPDATE_PROFILE_IMAGE', updatedImage.data);
-        context.dispatch("getMovies");
+      }).then(response => {
+        if (response.data.authorize) {
+          console.error(response.data.authorize);
+        } else {
+          context.commit('UPDATE_PROFILE_IMAGE', response.data);
+          context.dispatch("getMovies");
+        }
       }).catch(err => {
         console.error(err);
       })
@@ -170,9 +178,17 @@ export default new Vuex.Store({
       context.commit('UPDATE_ACTIVE_PAGINATION_INDEX', payload);
     },
     deleteMovie: (context, payload) => {
-      return axios.delete(context.state.axiosURL + '/delete/' + payload)
+      return axios.delete(context.state.axiosURL + '/delete/' + payload, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        }
+      })
         .then(response => {
-          console.log('Movie with the id: ' + response.data._id + ' has been deleted.');
+          if (response.data.authorize) {
+            console.error(response.data.authorize);
+          } else {
+            console.log('Movie with the id: ' + response.data._id + ' has been deleted.');
+          }
         }).catch(err => {
           console.error(err);
         })
