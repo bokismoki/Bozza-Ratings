@@ -127,6 +127,12 @@ export default new Vuex.Store({
           context.commit('SET_ERROR_MSG', response.data.message);
         } else if (response.data.authorize) {
           console.error(response.data.authorize);
+          Vue.notify({
+            group: 'authorization-error',
+            type: 'error',
+            title: 'Authorization Error',
+            text: 'Invalid Token!'
+          });
         } else {
           context.commit('ADD_MOVIE', response.data);
         }
@@ -143,6 +149,12 @@ export default new Vuex.Store({
       }).then(response => {
         if (response.data.authorize) {
           console.error(response.data.authorize);
+          Vue.notify({
+            group: 'authorization-error',
+            type: 'error',
+            title: 'Authorization Error',
+            text: 'Invalid Token!'
+          });
         } else {
           context.commit('UPDATE_PROFILE_IMAGE', response.data);
           context.dispatch("getMovies");
@@ -186,6 +198,12 @@ export default new Vuex.Store({
         .then(response => {
           if (response.data.authorize) {
             console.error(response.data.authorize);
+            Vue.notify({
+              group: 'authorization-error',
+              type: 'error',
+              title: 'Authorization Error',
+              text: 'Invalid Token!'
+            });
           } else {
             console.log('Movie with the id: ' + response.data._id + ' has been deleted.');
           }

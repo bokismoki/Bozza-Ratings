@@ -1,5 +1,6 @@
 <template>
   <div class="app">
+    <notifications group="authorization-error" />
     <div class="loaderContainer" v-if="isLoading">
       <img src="./assets/25.gif" class="loader" alt="Loading Animation" />
     </div>
