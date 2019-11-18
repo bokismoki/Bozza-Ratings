@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     if (user) {
         const isValid = await bcrypt.compare(password, user.password);
         if (isValid) {
-            let token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            let token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
             // Should only send the token with the payload of _id.
             res.send({ username: user.username, profileImage: user.profileImage, _id: user._id, token });
         } else {
