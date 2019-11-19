@@ -53,10 +53,10 @@ io.on('connection', socket => {
 // Handle production
 if (process.env.NODE_ENV === 'production') {
     // Static folder
-    app.use(express.static(__dirname + '/public/'));
+    app.use(express.static(__dirname + '/server/public/'));
 
     // Handle SPA
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/server/public/index.html'));
 }
 
 // SERVER LISTENING
