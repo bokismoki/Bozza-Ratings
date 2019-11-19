@@ -28,7 +28,7 @@ export default {
   name: "chat",
   data() {
     return {
-      socket: io("http://localhost:3000"),
+      socket: io("https://afternoon-earth-17653.herokuapp.com"),
       messages: [],
       newUser: "",
       newMsg: ""

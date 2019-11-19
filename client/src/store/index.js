@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    axiosURL: 'http://localhost:3000',
+    axiosURL: 'https://afternoon-earth-17653.herokuapp.com',
     errorMsg: '',
     isLogged: false,
     movies: [],
