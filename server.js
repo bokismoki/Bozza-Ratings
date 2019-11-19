@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors');
 
-require('./db/mongoose');
+require('./server/db/mongoose');
 
 // SERVER INIT
 const app = express();
@@ -15,19 +15,19 @@ app.use(express.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // ROUTES
-const signupRoute = require('./routes/userRoute/signup');
+const signupRoute = require('./server/routes/userRoute/signup');
 app.use('/signup', signupRoute);
 
-const loginRoute = require('./routes/userRoute/login');
+const loginRoute = require('./server/routes/userRoute/login');
 app.use('/login', loginRoute);
 
-const moviesRoute = require('./routes/movieRoute/movies');
+const moviesRoute = require('./server/routes/movieRoute/movies');
 app.use('/movies', moviesRoute);
 
-const userRoute = require('./routes/userRoute/user');
+const userRoute = require('./server/routes/userRoute/user');
 app.use('/user', userRoute);
 
-const deleteRoute = require('./routes/movieRoute/delete');
+const deleteRoute = require('./server/routes/movieRoute/delete');
 app.use('/delete', deleteRoute);
 
 // SOCKET.IO
